@@ -12,6 +12,7 @@ calculator.html                    Calculator, quote builder, preview and print
 builder-quote-template.html        Printable blank quote template and example
 guides/markup-vs-margin.html       Educational guide
 guides/how-to-price-a-building-job.html
+guides/true-cost-of-labour.html    Labour cost guide with worked example
 privacy.html                       Data stays in the browser
 404.html                           Not-found page (self-contained)
 robots.txt, sitemap.xml
