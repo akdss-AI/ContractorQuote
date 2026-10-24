@@ -80,4 +80,4 @@ Notes:
 ## Not included (by design)
 
 - VAT or tax calculations, and any tax, legal or compliance advice.
-- Accounts, a backend, analytics, or paid services.
+- Accounts, a backend, or paid services. The only third-party script is the cookieless Cloudflare Web Analytics beacon.
