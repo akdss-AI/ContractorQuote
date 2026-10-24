@@ -20,7 +20,7 @@ js/calc.js                         Pure calculation engine (no DOM)
 js/storage.js                      Safe localStorage wrapper
 js/app.js                          Calculator page wiring
 assets/favicon.svg, og-image.png
-tests/*.test.js                    Unit tests (Node's built-in runner)
+tests/*.test.js                    Unit and static SEO tests (Node's built-in runner)
 ```
 
 ## Formulas
@@ -75,6 +75,7 @@ Notes:
 - Canonical, Open Graph, sitemap and structured-data URLs use the full address above. If you move to a custom domain later, replace `https://akdss-ai.github.io/ContractorQuote` everywhere.
 - `404.html` links use the full address because a missing page can be at any depth.
 - Search engines only read `robots.txt` at a domain's root, so on a project site the file here is informational. Submit `sitemap.xml` in Google Search Console instead.
+- When you change a page, update its `<lastmod>` in `sitemap.xml` and, for guides, `dateModified` in the page's JSON-LD.
 
 ## Not included (by design)
 
