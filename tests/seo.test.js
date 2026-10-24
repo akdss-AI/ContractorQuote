@@ -93,6 +93,15 @@ test("main navigation links to the quote template on every content page", () => 
   }
 });
 
+test("main navigation links to the labour cost guide once on every content page", () => {
+  for (const p of pages) {
+    const nav = first(read(p), /<nav aria-label="Main">([\s\S]*?)<\/nav>/);
+    const links = nav.match(/true-cost-of-labour\.html"[^>]*>Labour cost<\/a>/g) || [];
+    assert.equal(links.length, 1, `${p} nav`);
+    assert.equal(/true-cost-of-labour\.html" aria-current="page"/.test(nav), p === "guides/true-cost-of-labour.html", `${p} aria-current`);
+  }
+});
+
 test("links to guide sections point at headings that exist", () => {
   for (const p of [...pages, "404.html"]) {
     for (const [, file, id] of read(p).matchAll(/href="([^"#]*guides\/[^"#]+)#([^"]+)"/g)) {
