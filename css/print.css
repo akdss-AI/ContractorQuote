@@ -1,0 +1,33 @@
+/* Print only the customer quote. Internal costs, overhead, margin and profit
+   live in the results panel and form, which are hidden here. */
+
+@page { size: A4; margin: 15mm; }
+
+html, body { background: #fff !important; }
+body { font-size: 11pt; }
+
+.site-header, .site-footer, .skip-link, .page-intro, .step-nav, .calc-layout,
+.price-bar, #preview-blocked, .preview-actions, #step-preview > h2, .results, form {
+  display: none !important;
+}
+
+main.wrap { max-width: none; padding: 0; }
+.card, .preview-step { border: 0 !important; box-shadow: none !important; padding: 0 !important; margin: 0 !important; background: none !important; }
+.paper-frame { background: none !important; padding: 0 !important; overflow: visible !important; }
+
+.quote-doc { box-shadow: none !important; padding: 0 !important; max-width: none; font-size: 10.5pt; }
+.q-head, .q-table tr, .q-accept, .q-block { break-inside: avoid; }
+.q-block h3, .q-job h3 { break-after: avoid; }
+a { color: inherit; text-decoration: none; }
+
+/* If someone prints before the quote is complete, say so instead of a blank page. */
+body:not(.quote-ready) main::before {
+  content: "This quote isn't complete yet. Go back to ContractorQuote and fill in the required details before printing.";
+  display: block; font-size: 14pt; padding: 20mm 0;
+}
+
+/* Tighter spacing so a typical quote fits on one A4 page. */
+.q-head { padding-bottom: 12px; }
+.q-to, .q-job, .q-price, .q-block, .q-accept { margin-top: 14px; }
+.q-table th, .q-table td { padding: 6px 8px; }
+.q-sign { gap: 10px; }

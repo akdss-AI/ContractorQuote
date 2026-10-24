@@ -1,0 +1,7 @@
+# Note: on a GitHub Pages project site, search engines only read robots.txt
+# from the domain root (akdss-ai.github.io/robots.txt), so this file is
+# informational. Submit the sitemap in Google Search Console instead.
+User-agent: *
+Allow: /
+
+Sitemap: https://akdss-ai.github.io/ContractorQuote/sitemap.xml

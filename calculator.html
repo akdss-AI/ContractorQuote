@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Job Pricing Calculator &amp; Quote Builder | ContractorQuote</title>
+  <meta name="description" content="Work out a realistic selling price for a building job from labour, materials, subcontractors, overhead and profit margin, then print a professional quote. Free, no sign-up.">
+  <link rel="canonical" href="https://akdss-ai.github.io/ContractorQuote/calculator.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Job Pricing Calculator & Quote Builder | ContractorQuote">
+  <meta property="og:description" content="Price a job properly and print a professional quote. Free, works in your browser.">
+  <meta property="og:url" content="https://akdss-ai.github.io/ContractorQuote/calculator.html">
+  <meta property="og:image" content="https://akdss-ai.github.io/ContractorQuote/assets/og-image.png">
+  <meta name="theme-color" content="#1d3557">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/print.css" media="print">
+  <script type="module" src="js/app.js"></script>
+</head>
+<body class="page-calculator">
+  <a class="skip-link" href="#main">Skip to calculator</a>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="index.html"><img src="assets/favicon.svg" alt="" width="28" height="28"> ContractorQuote</a>
+      <nav aria-label="Main">
+        <ul class="nav-list">
+          <li><a href="calculator.html" aria-current="page">Calculator</a></li>
+          <li><a href="guides/markup-vs-margin.html">Markup vs margin</a></li>
+          <li><a href="guides/how-to-price-a-building-job.html">Pricing guide</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="wrap">
+    <div class="page-intro">
+      <h1>Price a job and build a quote</h1>
+      <p>Fill in the four steps. Your work saves automatically in this browser only.</p>
+      <div class="intro-actions">
+        <button type="button" class="btn btn-secondary" id="new-quote">Start a new quote</button>
+        <span class="save-status" id="save-status" role="status" aria-live="polite"></span>
+      </div>
+      <div class="banner banner-warn" id="storage-banner" role="alert" hidden></div>
+      <noscript><div class="banner banner-warn">The calculator needs JavaScript turned on in your browser.</div></noscript>
+    </div>
+
+    <ol class="step-nav" aria-label="Steps">
+      <li><a href="#step-costs">1. Costs</a></li>
+      <li><a href="#step-price">2. Price</a></li>
+      <li><a href="#step-details">3. Quote details</a></li>
+      <li><a href="#step-preview">4. Preview &amp; print</a></li>
+    </ol>
+
+    <div class="calc-layout">
+      <form id="cq-form" class="calc-form" novalidate autocomplete="off">
+
+        <!-- STEP 1 -->
+        <section class="card step" id="step-costs" aria-labelledby="h-costs">
+          <h2 id="h-costs"><span class="step-num" aria-hidden="true">1</span> Job costs</h2>
+          <p class="step-help">Enter what the job will cost <strong>you</strong>. Leave anything that doesn't apply blank.</p>
+
+          <fieldset>
+            <legend>Labour</legend>
+            <div class="grid-2">
+              <div class="field">
+                <label for="hours">Labour hours</label>
+                <div class="input-affix"><input id="hours" name="hours" data-group="costs" type="text" inputmode="decimal" placeholder="e.g. 40" aria-describedby="hours-help hours-error"><span class="affix" aria-hidden="true">hrs</span></div>
+                <p class="hint" id="hours-help">Total hours for everyone on the job.</p>
+                <p class="field-error" id="hours-error"></p>
+              </div>
+              <div class="field">
+                <label for="rate">Hourly rate</label>
+                <div class="input-affix prefix"><span class="affix" aria-hidden="true">£</span><input id="rate" name="rate" data-group="costs" type="text" inputmode="decimal" placeholder="e.g. 30" aria-describedby="rate-help rate-error"></div>
+                <p class="hint" id="rate-help">What an hour of labour costs you, or what you pay yourself.</p>
+                <p class="field-error" id="rate-error"></p>
+              </div>
+            </div>
+            <div class="field">
+              <label for="burdenPct">Labour burden</label>
+              <div class="input-affix narrow"><input id="burdenPct" name="burdenPct" data-group="costs" type="text" inputmode="decimal" placeholder="e.g. 15" aria-describedby="burdenPct-help burdenPct-error"><span class="affix" aria-hidden="true">%</span></div>
+              <p class="hint" id="burdenPct-help">Extra cost on top of the hourly rate, such as holiday cover, pension, insurance, travel time and unpaid admin. Added to labour only.</p>
+              <p class="field-error" id="burdenPct-error"></p>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Materials and other costs</legend>
+            <div class="grid-2">
+              <div class="field">
+                <label for="materials">Materials</label>
+                <div class="input-affix prefix"><span class="affix" aria-hidden="true">£</span><input id="materials" name="materials" data-group="costs" type="text" inputmode="decimal" placeholder="e.g. 800" aria-describedby="materials-help materials-error"></div>
+                <p class="hint" id="materials-help">Total cost of materials for this job.</p>
+                <p class="field-error" id="materials-error"></p>
+              </div>
+              <div class="field">
+                <label for="subcontractors">Subcontractors</label>
+                <div class="input-affix prefix"><span class="affix" aria-hidden="true">£</span><input id="subcontractors" name="subcontractors" data-group="costs" type="text" inputmode="decimal" placeholder="e.g. 500" aria-describedby="subcontractors-help subcontractors-error"></div>
+                <p class="hint" id="subcontractors-help">What you'll pay other trades, such as an electrician or plasterer.</p>
+                <p class="field-error" id="subcontractors-error"></p>
+              </div>
+            </div>
+            <div class="field">
+              <label for="extras">Other job costs</label>
+              <div class="input-affix prefix narrow"><span class="affix" aria-hidden="true">£</span><input id="extras" name="extras" data-group="costs" type="text" inputmode="decimal" placeholder="e.g. 150" aria-describedby="extras-help extras-error"></div>
+              <p class="hint" id="extras-help">Costs for this job only: skip hire, plant or tool hire, parking, waste disposal.</p>
+              <p class="field-error" id="extras-error"></p>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Business running costs</legend>
+            <div class="field">
+              <label for="overheadPct">Overhead</label>
+              <div class="input-affix narrow"><input id="overheadPct" name="overheadPct" data-group="costs" type="text" inputmode="decimal" placeholder="e.g. 10" aria-describedby="overheadPct-help overheadPct-error"><span class="affix" aria-hidden="true">%</span></div>
+              <p class="hint" id="overheadPct-help">A share of your running costs (van, phone, insurance, tools, accountant) added to this job as a percentage of the costs above.</p>
+              <p class="field-error" id="overheadPct-error"></p>
+            </div>
+          </fieldset>
+        </section>
+
+        <!-- STEP 2 -->
+        <section class="card step" id="step-price" aria-labelledby="h-price">
+          <h2 id="h-price"><span class="step-num" aria-hidden="true">2</span> Profit margin</h2>
+          <div class="field">
+            <label for="marginPct">Target profit margin</label>
+            <div class="input-affix narrow"><input id="marginPct" name="marginPct" data-group="costs" type="text" inputmode="decimal" placeholder="e.g. 20" aria-describedby="marginPct-help marginPct-error"><span class="affix" aria-hidden="true">%</span></div>
+            <p class="hint" id="marginPct-help">The share of the <strong>selling price</strong> you want to keep as profit (0 to 90%). This is not the same as markup. <a href="guides/markup-vs-margin.html">What's the difference?</a></p>
+            <p class="field-error" id="marginPct-error"></p>
+          </div>
+          <div class="warnings" id="pricing-warnings" aria-live="polite"></div>
+        </section>
+
+        <!-- STEP 3 -->
+        <section class="card step" id="step-details" aria-labelledby="h-details">
+          <h2 id="h-details"><span class="step-num" aria-hidden="true">3</span> Quote details</h2>
+
+          <fieldset>
+            <legend>Your business</legend>
+            <p class="step-help">Saved separately and reused for every new quote.</p>
+            <div class="grid-2">
+              <div class="field">
+                <label for="businessName">Business or trading name</label>
+                <input id="businessName" name="businessName" data-group="business" type="text" autocomplete="organization">
+              </div>
+              <div class="field">
+                <label for="contactName">Your name</label>
+                <input id="contactName" name="contactName" data-group="business" type="text" autocomplete="name">
+              </div>
+              <div class="field">
+                <label for="businessPhone">Phone</label>
+                <input id="businessPhone" name="businessPhone" data-group="business" type="tel" autocomplete="tel">
+              </div>
+              <div class="field">
+                <label for="businessEmail">Email</label>
+                <input id="businessEmail" name="businessEmail" data-group="business" type="email" autocomplete="email">
+              </div>
+            </div>
+            <div class="field">
+              <label for="businessAddress">Business address</label>
+              <textarea id="businessAddress" name="businessAddress" data-group="business" rows="3" autocomplete="street-address"></textarea>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Customer</legend>
+            <div class="field">
+              <label for="customerName">Customer name <span class="req">(required)</span></label>
+              <input id="customerName" name="customerName" data-group="quote" type="text" aria-describedby="customerName-error" required>
+              <p class="field-error" id="customerName-error"></p>
+            </div>
+            <div class="grid-2">
+              <div class="field">
+                <label for="customerPhone">Customer phone</label>
+                <input id="customerPhone" name="customerPhone" data-group="quote" type="tel">
+              </div>
+              <div class="field">
+                <label for="customerEmail">Customer email</label>
+                <input id="customerEmail" name="customerEmail" data-group="quote" type="email" aria-describedby="customerEmail-error">
+                <p class="field-error" id="customerEmail-error"></p>
+              </div>
+            </div>
+            <div class="field">
+              <label for="customerAddress">Customer or job address</label>
+              <textarea id="customerAddress" name="customerAddress" data-group="quote" rows="3"></textarea>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>The job</legend>
+            <div class="field">
+              <label for="jobTitle">Job title</label>
+              <input id="jobTitle" name="jobTitle" data-group="quote" type="text" placeholder="e.g. Kitchen extension: groundworks and blockwork">
+            </div>
+            <div class="field">
+              <label for="jobDescription">Description and scope of work <span class="req">(required)</span></label>
+              <textarea id="jobDescription" name="jobDescription" data-group="quote" rows="6" aria-describedby="jobDescription-help jobDescription-error" required></textarea>
+              <p class="hint" id="jobDescription-help">List what's included, in plain language. One item per line works well.</p>
+              <p class="field-error" id="jobDescription-error"></p>
+            </div>
+            <div class="field">
+              <label for="exclusions">Exclusions</label>
+              <textarea id="exclusions" name="exclusions" data-group="quote" rows="4" aria-describedby="exclusions-help"></textarea>
+              <p class="hint" id="exclusions-help">What's <strong>not</strong> included, e.g. "Decorating", "Skip permits", "Unforeseen structural work".</p>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Terms</legend>
+            <div class="grid-3">
+              <div class="field">
+                <label for="quoteNumber">Quote number</label>
+                <input id="quoteNumber" name="quoteNumber" data-group="quote" type="text">
+              </div>
+              <div class="field">
+                <label for="quoteDate">Quote date</label>
+                <input id="quoteDate" name="quoteDate" data-group="quote" type="date" aria-describedby="quoteDate-error">
+                <p class="field-error" id="quoteDate-error"></p>
+              </div>
+              <div class="field">
+                <label for="validityDays">Valid for</label>
+                <div class="input-affix"><input id="validityDays" name="validityDays" data-group="quote" type="text" inputmode="numeric" aria-describedby="validityDays-help validityDays-error"><span class="affix" aria-hidden="true">days</span></div>
+                <p class="hint" id="validityDays-help">Valid until: <strong id="valid-until">–</strong></p>
+                <p class="field-error" id="validityDays-error"></p>
+              </div>
+            </div>
+            <div class="field">
+              <label for="paymentTerms">Payment terms</label>
+              <textarea id="paymentTerms" name="paymentTerms" data-group="quote" rows="3"></textarea>
+            </div>
+            <div class="field">
+              <label for="notes">Notes</label>
+              <textarea id="notes" name="notes" data-group="quote" rows="3" aria-describedby="notes-help"></textarea>
+              <p class="hint" id="notes-help">Anything else your customer should know. Printed as you write it.</p>
+            </div>
+          </fieldset>
+        </section>
+      </form>
+
+      <!-- RESULTS (internal; never printed) -->
+      <aside class="results card" id="results" aria-labelledby="h-results">
+        <h2 id="h-results">Your numbers</h2>
+        <p class="results-private">For you only. These figures are never printed on the quote.</p>
+        <div id="results-empty" class="results-empty">Enter some costs to see a recommended price.</div>
+        <div id="results-body" hidden>
+          <dl class="breakdown">
+            <div><dt>Labour</dt><dd id="r-labour"></dd></div>
+            <div><dt>Labour burden</dt><dd id="r-burden"></dd></div>
+            <div><dt>Materials</dt><dd id="r-materials"></dd></div>
+            <div><dt>Subcontractors</dt><dd id="r-subcontractors"></dd></div>
+            <div><dt>Other job costs</dt><dd id="r-extras"></dd></div>
+            <div class="subtotal"><dt>Direct costs</dt><dd id="r-direct"></dd></div>
+            <div><dt>Overhead</dt><dd id="r-overhead"></dd></div>
+            <div class="subtotal"><dt>Total job cost</dt><dd id="r-total"></dd></div>
+          </dl>
+          <div class="headline" aria-live="polite">
+            <div class="headline-price">
+              <span class="headline-label">Recommended price</span>
+              <span class="headline-value" id="r-price"></span>
+            </div>
+            <dl class="headline-stats">
+              <div><dt>Profit</dt><dd id="r-profit"></dd></div>
+              <div><dt>Margin</dt><dd id="r-margin"></dd></div>
+              <div><dt>Markup on cost</dt><dd id="r-markup"></dd></div>
+            </dl>
+          </div>
+          <p class="explain" id="r-explain"></p>
+        </div>
+      </aside>
+    </div>
+
+    <!-- STEP 4 -->
+    <section class="card step preview-step" id="step-preview" aria-labelledby="h-preview">
+      <h2 id="h-preview"><span class="step-num" aria-hidden="true">4</span> Preview and print</h2>
+      <div id="preview-blocked" class="banner banner-info"></div>
+      <div class="preview-actions">
+        <button type="button" class="btn btn-primary" id="print-quote" disabled>Print or save as PDF</button>
+        <p class="hint">In the print window, choose <strong>Save as PDF</strong> as the printer to get a PDF file.</p>
+      </div>
+      <div class="paper-frame">
+        <article class="quote-doc" id="quote-doc" aria-label="Quote preview" hidden>
+          <header class="q-head">
+            <div class="q-from">
+              <p class="q-business" id="q-businessName"></p>
+              <p id="q-contactName"></p>
+              <p class="q-multiline" id="q-businessAddress"></p>
+              <p id="q-businessPhone"></p>
+              <p id="q-businessEmail"></p>
+            </div>
+            <div class="q-meta">
+              <p class="q-title">Quotation</p>
+              <dl>
+                <div><dt>Quote no.</dt><dd id="q-quoteNumber"></dd></div>
+                <div><dt>Date</dt><dd id="q-quoteDate"></dd></div>
+                <div><dt>Valid until</dt><dd id="q-validUntil"></dd></div>
+              </dl>
+            </div>
+          </header>
+
+          <section class="q-to">
+            <h3>Prepared for</h3>
+            <p class="q-strong" id="q-customerName"></p>
+            <p class="q-multiline" id="q-customerAddress"></p>
+            <p id="q-customerPhone"></p>
+            <p id="q-customerEmail"></p>
+          </section>
+
+          <section class="q-job">
+            <h3 id="q-jobTitle">The job</h3>
+            <p class="q-multiline" id="q-jobDescription"></p>
+          </section>
+
+          <section class="q-price">
+            <table class="q-table">
+              <caption class="visually-hidden">Quote breakdown</caption>
+              <thead><tr><th scope="col">Item</th><th scope="col" class="num">Amount</th></tr></thead>
+              <tbody id="q-lines"></tbody>
+              <tfoot><tr><th scope="row">Quote total</th><td class="num" id="q-total"></td></tr></tfoot>
+            </table>
+          </section>
+
+          <section class="q-block" id="q-exclusions-block">
+            <h3>Exclusions</h3>
+            <p class="q-multiline" id="q-exclusions"></p>
+          </section>
+          <section class="q-block" id="q-paymentTerms-block">
+            <h3>Payment terms</h3>
+            <p class="q-multiline" id="q-paymentTerms"></p>
+          </section>
+          <section class="q-block" id="q-notes-block">
+            <h3>Notes</h3>
+            <p class="q-multiline" id="q-notes"></p>
+          </section>
+
+          <section class="q-accept">
+            <h3>Acceptance</h3>
+            <p>To accept this quote, please sign below and return a copy, or contact us using the details above.</p>
+            <div class="q-sign">
+              <p>Signed: <span class="q-line"></span></p>
+              <p>Name: <span class="q-line"></span></p>
+              <p>Date: <span class="q-line short"></span></p>
+            </div>
+          </section>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <div class="price-bar" id="price-bar" hidden>
+    <a href="#results">
+      <span><span class="pb-label">Price</span> <strong id="pb-price"></strong></span>
+      <span><span class="pb-label">Profit</span> <strong id="pb-profit"></strong></span>
+      <span class="pb-more">Details</span>
+    </a>
+  </div>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>ContractorQuote is a free estimating aid. Figures are estimates based on what you enter and are not financial, tax or legal advice.</p>
+      <p><a href="privacy.html">Privacy: your data stays in your browser</a> · <a href="index.html">Home</a></p>
+    </div>
+  </footer>
+</body>
+</html>
