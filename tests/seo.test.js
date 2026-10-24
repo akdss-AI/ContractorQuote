@@ -70,3 +70,11 @@ test("relative links and absolute site links resolve to files", () => {
     }
   }
 });
+
+test("analytics snippet appears exactly once on every sitemap page and not on 404", () => {
+  for (const p of pages) {
+    const count = read(p).split("static.cloudflareinsights.com/beacon.min.js").length - 1;
+    assert.equal(count, 1, `${p} analytics count`);
+  }
+  assert.doesNotMatch(read("404.html"), /cloudflareinsights/);
+});

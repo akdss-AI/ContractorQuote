@@ -9,6 +9,7 @@ It's a static site with plain HTML, CSS and JavaScript. There are no dependencie
 ```
 index.html                         Landing page
 calculator.html                    Calculator, quote builder, preview and print
+builder-quote-template.html        Printable blank quote template and example
 guides/markup-vs-margin.html       Educational guide
 guides/how-to-price-a-building-job.html
 privacy.html                       Data stays in the browser
@@ -16,9 +17,11 @@ privacy.html                       Data stays in the browser
 robots.txt, sitemap.xml
 css/styles.css                     All screen styles
 css/print.css                      Prints only the customer quote
+css/template-print.css             Prints only the blank quote template
 js/calc.js                         Pure calculation engine (no DOM)
 js/storage.js                      Safe localStorage wrapper
 js/app.js                          Calculator page wiring
+js/template.js                     Print button on the quote template page
 assets/favicon.svg, og-image.png
 tests/*.test.js                    Unit and static SEO tests (Node's built-in runner)
 ```
