@@ -245,3 +245,10 @@ input:focus, textarea:focus { border-color: var(--focus); }
 .faq dd { margin: 4px 0 0; }
 .cta-box { margin: 32px 0 0; padding: 24px; background: var(--info-bg); border-radius: var(--radius); }
 .cta-box p { margin-top: 0; }
+
+/* ---- quote template page ---- */
+.example-quote, .template-section { margin-top: 24px; }
+.fill-label { font-size: 0.8rem; color: #555; margin-top: 6px !important; }
+.fill-line { border-bottom: 1px solid #333; height: 1.8em; margin: 0 !important; }
+.q-meta dd.fill-line { height: 1.4em; }
+.blank-quote .q-table td { height: 2.2em; }

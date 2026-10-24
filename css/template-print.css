@@ -1,0 +1,26 @@
+/* Quote template page: print only the blank template. */
+
+@page { size: A4; margin: 15mm; }
+
+html, body { background: #fff !important; }
+body { font-size: 11pt; }
+
+.site-header, .site-footer, .skip-link, main > :not(.template-section),
+.template-section > :not(.paper-frame) {
+  display: none !important;
+}
+
+main.wrap { max-width: none; padding: 0; }
+.paper-frame { background: none !important; padding: 0 !important; overflow: visible !important; }
+.quote-doc { box-shadow: none !important; padding: 0 !important; max-width: none; font-size: 10.5pt; }
+.q-head, .q-table tr, .q-accept, .q-block { break-inside: avoid; }
+
+/* Tighter spacing so the template fits on one A4 page. */
+.q-head { padding-bottom: 10px; }
+.q-to, .q-job, .q-price, .q-block, .q-accept { margin-top: 12px; }
+.q-table th, .q-table td { padding: 6px 8px; }
+.fill-line { height: 1.4em; }
+.fill-label { margin-top: 3px !important; }
+.blank-quote { line-height: 1.35; }
+.q-accept p { margin-bottom: 0; }
+.q-sign { gap: 6px; margin-top: 8px; }
