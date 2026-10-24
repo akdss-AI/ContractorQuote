@@ -78,3 +78,26 @@ test("analytics snippet appears exactly once on every sitemap page and not on 40
   }
   assert.doesNotMatch(read("404.html"), /cloudflareinsights/);
 });
+
+test("meta descriptions fit in a typical search snippet (160 characters)", () => {
+  for (const p of pages) {
+    const description = first(read(p), /<meta name="description" content="([^"]+)"/);
+    assert.ok(description.length <= 160, `${p} description is ${description.length} characters`);
+  }
+});
+
+test("main navigation links to the quote template on every content page", () => {
+  for (const p of pages) {
+    const nav = first(read(p), /<nav aria-label="Main">([\s\S]*?)<\/nav>/);
+    assert.match(nav, /builder-quote-template\.html"[^>]*>Quote template<\/a>/, `${p} nav`);
+  }
+});
+
+test("links to guide sections point at headings that exist", () => {
+  for (const p of [...pages, "404.html"]) {
+    for (const [, file, id] of read(p).matchAll(/href="([^"#]*guides\/[^"#]+)#([^"]+)"/g)) {
+      const target = read(normalize(join(dirname(p), file)));
+      assert.match(target, new RegExp(`id="${id}"`), `${p} links to missing #${id}`);
+    }
+  }
+});
